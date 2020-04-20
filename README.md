@@ -73,3 +73,26 @@ Nyt kopion vielä tähän harjoitukseen liittyvät kuvat tuohon harj3 kansioon, 
 **git commit -m "Report and pictures"**
 
 **git push**
+
+
+## Näytä omalla git-varastollasi esimerkit komennoista ‘git log’, ‘git diff’ ja ‘git blame’, selitä tulokset
+
+Tässä tehtäväosiossa tuli kokeilla git komentoja **git log**, **git diff** ja **git blame** omalle git-varastolle, eli tälle jonka tässä harjoituksessa nyt loin.
+
+Alkuun kokeilin **git log** komentoa. Se toi selkeästikin lokitiedot Gitissä tapahtuneista commit:sta. Siinä ilmeisesti commit:lle annettu tunniste (pitkä merkkisarja), commit:n tekijän nimi eli käyttäjätieto joka Gitin käyttöönotossa luotiin, commit:in päivämäärä ja kellonaika sekä commit:lle annettu selite. Tässäkin mielessä huomaa, että tuon selittään on hyvä olla jollakin tapaa informatiivinine, se helpottaa selkeästi jos jälkeenpäin tulee noita lokeja tarkastella. Luin vielä gittutorial man sivulta, että tuon **git log** tiedot juurikin kertovat tiedot noista tehdyistä commit:sta.
+
+Seuraavaksi kokeilin **git diff** komentoa, mutta se ei tuonut mitään tietoa. Luin siis taas tuolta **man gittutorial** sivulta siitä lisätietoa. Selvisi että tuo komento listaa muutokset joita tehty Git kansioon, mutta ei vielä **add** toiminnolla lisätty. Tallensin siis tähän readme tiedostoon lisäämäni raporttitiedot ja kokeilin **git diff** komentoa uudestaan.
+
+Nyt komentoterminaaliin tuli tietona raporttiin kirjoittamani tekstit, joita ei vielä ollut **add** toiminnolla lisätty päivitettävien listalle. Vihreällä tekstillä näkyi päivittämätön teksti ja sen yläpuolella näkyi harmaalla jo päivitetty materiaali. Tämä komento vaikutti varsin kätevältä, jos olisi tarkoitus esim. vain osa tiedoista siirtää kyseissä vaiheesa päivitettävien listalle, niin tällä vaikuttaisi saavan helposti hyvän kokonaiskuvan mitä on siirtämättä (eli ei käyttäisi **add .** toimintoa joka lisää kaiken, vaan **add tiedosti7**).
+
+Viimeisenä kokeilin **git blame** komentoa. Lukasin siitä hieman Gitin man sivuilta, se näyttää halutusta tiedostosta kuka ja mitä siitä on viimeksi muokattu (heh, nyt tajuan blame, ketä pääsee siis syyttelemään). Katoin siis README.md tiedostoa **git blame README.md** komennolla. Sillä avautui yksityiskohtainen lista tiedoston jokaisesta rivistä, jossa näkyi viimeisin muokkaaja (Teemu Aittomaki, eli minä), pvm ja kellonaika, rivinumerot sekä varsinainen rivin sisältö. En ensimmäisestä tiedosto noilla riveillä (eli "fa62b00c") ollut varma, että mitä se tarkoittaa, joten etsin googlettamalla asiaan vastausta. Löysin tämän atlassian.com sivuston ([linkki](https://www.atlassian.com/git/tutorials/inspecting-a-repository/git-blame)) artikkelin, jossa kerrottiin, että se on muokkauksen id. Tutkin hieman lisää tuo omaa git blame listaani ja huomasinkin, että tuo id muuttuu selkeästi tapahtumahetken mukaan. Eli ne joissa on sama pvm ja kellon aika, on sama id, mutta kun kellonaika (tässähän nyt ei tietenkään pvm vaihdu) vaihtuu, niin myös id muuttuu. Alla muutama esimerkki:
+
+**fa62b00c (Teemu Aittomaki   2020-04-20 14:13:22 +0000  1) # Harjoitus 3**
+
+**ddd5c045 (Teemu Aittomaki   2020-04-20 14:31:54 +0000 13) Vaikka olinkin**
+
+**d50d42de (Teemu Aittomaki   2020-04-20 14:42:47 +0000 67) Nyt kopion**
+
+Lopussa näkyi myös tapahtumia, joita ei ollut commit:ttu vielä, joten niillä ei ollut varsinaista id:tä, tietona vain **00000000** eikä ketään ns. vastuu henkilöä. Eli tiedoston tiedoston muokkaaja tieto lisätään vasta commit:n jälkeen. Pvm ja kellonaika näkyivät jo. Alla yksi esimerkkirivi tällaisesta:
+
+**00000000 (Not Committed Yet 2020-04-20 15:20:07 +0000 80) Tässä tehtäväosiossa**
