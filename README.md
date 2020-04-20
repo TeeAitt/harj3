@@ -43,7 +43,7 @@ Seuraavaksi liitin GitHubissa olevan reporsitoryn linkin Gitiin.
 
 Tämän jälkeen tuli pyyntö syöttää GitHubin käyttäjätunnus sekä salasana. Tietojen syöttämisen jälkeen kotihakemistoon oli muodostunut harj3 kansio tästä GitHubissa luodusta repositorystä. Eli tuohon kansioon liittyvät tiedostot pystyi jatkossa helposti päivittämään GitHubiin ja vastakkain GitHubista pystyi myös lataamaan/päivittämään uudet ja muuttuneet tiedot tähän paikalliseen kansioon.
 
-Seuraavaksi loin README.md (tiedostomuotu siis MarkDown) tiedoston, johon lisäsin alkuun vain "Harjoitus3" tekstin, testaamista varten. Lisäsin **add** toiminnolla tämän tiedoston päivitettävien listalle ja **commit -m** toiminnolla toimonnolla hyväksyin tämän päivityksen "Started a readme" kommentin kera (**-m** määrittelee tuon kommentin lisäämisen) ja lopuksi uploadasin (push) päivityksen GitHubiin. Tästä tuli kuittauksena tieto siirrosta, joka vaikutti kaiken perusteella onnistuneen.
+Seuraavaksi loin README.md (tiedostomuotu siis MarkDown) tiedoston, johon lisäsin alkuun vain "Harjoitus3" tekstin, testaamista varten. Lisäsin **add** toiminnolla (luin näistä toiminnoista tarkemmin Gitin man sivuilta) tämän tiedoston päivitettävien listalle ja **commit -m** toiminnolla toimonnolla hyväksyin tämän päivityksen "Started a readme" kommentin kera (**-m** määrittelee tuon kommentin lisäämisen) ja lopuksi uploadasin (push) päivityksen GitHubiin. Tästä tuli kuittauksena tieto siirrosta, joka vaikutti kaiken perusteella onnistuneen.
 
 **echo "Harjoitus3" >> README.md**
 
@@ -63,3 +63,8 @@ Muotoilut tehtyäni ja tallennettuani tiedoston, päivitin GitHubiin. Siirto Git
 **git commit -m "Report start included"**
 
 **git push**
+
+Nyt kopion vielä tähän harjoitukseen liittyvät kuvat tuohon harj3 kansioon, jotta nekin siirtyisivät suoraan GitHubiin aina raportin (readme tiedosto) päivityksen yhteydessä.
+
+**cp /home/xubuntu/Pictures/*.png /home/xubuntu/harj3/**
+
