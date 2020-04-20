@@ -222,4 +222,9 @@ Sisältö:
 
 **Moro, mukavaa iltaa!**
 
+Sitten vielä tilan testaus komennolla **sudo salt '*' state.apply hello**. Tästä tuli paluuna tieto, että tilan suoritus oli onnistunut, helloteemu.txt tiedosto oli kopioitu minionille. Jotta voisin olla asiasta varma, niin tarkistin vielä tämän komennolla "sudo salt 'laite1' cmd.run 'cat /tmp/helloteemu.txt'. Tästä seurasi paluuna "laite1: Moro, mukavaa iltaa!", tällä sain vavhistuksen, että tiedosto oli varmasti kopioitu minionille.
+
+Varsinaisen SQLite3 ohjelman asennusta ja käyttöä testasin aluksi masterilla.
+
+**sudo apt-get install sqlite3 -y**
 
