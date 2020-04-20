@@ -137,9 +137,64 @@ Eli **git reset --hard** ei ainakaan tuota tiedostoa minulta poistanut suoraan, 
 
 ## Tee uusi salt-moduuli
 
-Tässä viimeisessä tehtäväosiossa oli tarkoituksena tehä salt-moduuli, jossa asennetaan jokin demoni, työpöytäohjelma tai komentokehotteesta toimiva ohjelma. Tarkoituksena oli kuitenkin, että kyseessä on jokin eri ohjelma, kuin olisi jossain aiemmassa kurssin harjoituksessa käytetty. Hetken mietittyäni tuli mieleen löytyisikö SQLite3-ohjelmasta pakettipohjaista asennusta. Olin ohjelman käyttämistä kokeillut pikaisesti toisella kurssilla, mutta silloinkin se oli asennettu lataamalla pakattutiedosto verkkosivulta. Hain siis komentoterminaalin kautta SQLite3:sta jonkinlaista pakettiasennustiedostoa. Lista oli varsin laaja, joten rajasin sen **grep** avulla koskemaan vain paketteja mitkä sisälsivät sqlite3 tekstin. Pakettilistalta löytyi sqlite3 niminen paketti, joka kuvauksen mukaan oli komentoterminaalin kautta käytettä sqlite3 ohjelma, päätin siis kokeilla luoda sen käyttöönoton ympärille salt-moduulin.
+Tässä viimeisessä tehtäväosiossa oli tarkoituksena tehä Salt-moduuli, jossa asennetaan jokin demoni, työpöytäohjelma tai komentokehotteesta toimiva ohjelma. Tarkoituksena oli kuitenkin, että kyseessä on jokin eri ohjelma, kuin olisi jossain aiemmassa kurssin harjoituksessa käytetty. Hetken mietittyäni tuli mieleen löytyisikö SQLite3-ohjelmasta pakettipohjaista asennusta. Olin ohjelman käyttämistä kokeillut pikaisesti toisella kurssilla, mutta silloinkin se oli asennettu lataamalla pakattutiedosto verkkosivulta. Hain siis komentoterminaalin kautta SQLite3:sta jonkinlaista pakettiasennustiedostoa. Lista oli varsin laaja, joten rajasin sen **grep** avulla koskemaan vain paketteja mitkä sisälsivät sqlite3 tekstin. Pakettilistalta löytyi sqlite3 niminen paketti, joka kuvauksen mukaan oli komentoterminaalin kautta käytettä sqlite3 ohjelma, päätin siis kokeilla luoda sen käyttöönoton ympärille salt-moduulin.
 
 **apt-cache search sqlite3**
 
 **apt-cache search sqlite3|grep sqlite3**
 
+Tein Saltia varten virtuaalipalvelimen DigitalOceaniin, minulla oli siellä jo ennestään yksi, joten tein tätä varten oman. Olen tuon virtuaalipalvelimen luonnin käynyt tarkemmin läpi aiemmin Linux Palvelimet kurssin harjoituksessa 4 ([linkki](https://teemuaittomaki.wordpress.com/2020/02/21/harjoitus-4/)), joten käyn tässä tuon luonnin sekä alkuasetukset varsin pikaisesti vain läpi.
+
+Kirjauduttuani DigitalOcean sivustolle sisään, valitsin oikeasta yläkulmasta "Create" pudotusvalikosta "Droplets" valinnan, jolla pääsin luomaan uuden Dropletsin (virtuaalipalvelimen). Loin Dropletsin alla olevilla valinnoilla:
+
+- **Choose an image:** Ubuntu 18.04.3 (LTS) x64
+- **Choose a plan:** Standard, $5/mo
+- **Choose a datacenter region:** Franfurt
+- **Choose a hostname:** ankka
+
+(muut valinnat jätin tyhjiksi/oletuksiksi)
+
+Tämän jälkeen klikkasin "Create Droplet", jonka jälkeen meni muutama sekuntti ja Droplets oli luotu. Seuraavaksi muodoston root-käyttäjällä ssh-yhteyden virtuaalipalvelimeen, annoin kirjautumisen yhteydessä DigitalOceanilta saamani salasanan, jonka jälkeen oli kirjautuneena luomalleni virtuaalipalvelimelle. Seuraavaksi loin virtuaalipalvelimelle uuden teemu nimisen käyttäjän, jolle annoin sudo, adm sekä admin oikeudet.
+
+**ssh root@64.225.105.249**
+
+**sudo adduser teemu**
+
+**sudo adduser teemu sudo**
+
+**sudo adduser teemu adm**
+
+**sudo adduser teemu admin**
+
+Käyttäjän luotuani avasin toisen komentoterminaalivälilehden ja kokeilin teemu-käyttäjällä sisäänkirjautumista virtuaalipalvelimelle. Kirjautuminen toimi, kokeilin vielä, että sudo oikeudet toimivat päivittämällä pakettitiedot. Nekin toimivat, eli nyt pystyin turvallisesti lukitsemaan root-käyttäjältä kirjautumisen yleisesti sekä ssh:n kautta. Aktivoin myös samalla palomuurin, tein siihen kuitenki aluksi aukon ssh-yhteyttä varten.
+
+
+**ssh teemu@64.225.105.249**
+
+**sudo usermod --lock root**
+
+**sudoedit /etc/ssh/sshd_config** (tästä tiedostota tuli muuttaa **PermitRootLogin** kohta muotoon **no**)
+
+**sudo service ssh restart**
+
+**sudo ufw allow 22/tcp**
+
+**sudo ufw enable**
+
+Näiden jälkeen kokeilin vielä, ettei root-käyttäjällä kirjautuminen varmasti onnistu ssh:n kautta. Kirjautumisyrityksestä seurasi tieto "Permission denied, please try again.", eli kirjautminen ei rootilla enää onnistunut.
+
+Alkuasetusket olivat kunnossa, eli nyt asensin tälle virtuaalipalvelimelle Salt-masterin. Asennuksen jälkeen tein Saltia varten aukot palomuuriin.
+
+**sudo apt-get install salt-master -y**
+
+**sudo ufw allow 4505/tcp**
+
+**sudo ufw allow 4506/tcp**
+
+Virtuaalikoneelle taas asensin Salt-minionin, jonka jälkeen avasin minionin asetustiedoston muokkaukseen.
+
+**sudo apt-get install salt-master -y**
+
+**sudoedit /etc/salt/minion**
+
+Asetustiedostoon määrittelin master-laitteen IP-osoitteen (**master:** kohta), jotta minion-laite tietää mihin IP-osoitteeseen sen tulee olla yhteydessä. Lisäksi määrittelin minionille tunnistetiedon (**id:** kohta) **laite1**.
