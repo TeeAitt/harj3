@@ -197,4 +197,29 @@ Virtuaalikoneelle taas asensin Salt-minionin, jonka jälkeen avasin minionin ase
 
 **sudoedit /etc/salt/minion**
 
-Asetustiedostoon määrittelin master-laitteen IP-osoitteen (**master:** kohta), jotta minion-laite tietää mihin IP-osoitteeseen sen tulee olla yhteydessä. Lisäksi määrittelin minionille tunnistetiedon (**id:** kohta) **laite1**.
+Asetustiedostoon määrittelin master-laitteen IP-osoitteen (**master:** kohta), jotta minion-laite tietää mihin IP-osoitteeseen sen tulee olla yhteydessä. Lisäksi määrittelin minionille tunnistetiedon (**id:** kohta) **laite1**. Tallensin muokkauksen ja käynnistin Salt-minionin uudestaan.
+
+**sudo systemctl restart salt-minion.service **
+
+Seuraavaksi katsoin masterilla **sudo salt-key -A** komennolla, oliko sille tullut hyväksyttäviä avaimia (public key). Listalla oli laite1:n lähettämä avain, hyväksyin sen "y" komennolla. Tämän jälkeen varmistin masterilla vielä "sudo salt '*' cmd.run 'whoami' komennolla, että yhteys ja komennot varmasti toimivat, tähän tuli vastaus "laite1: root", eli minion vastasi komentoon.
+
+Tein seuraavaksi masterille kansion tilatoimintoja varten, joita aluksi kokeilin yksinkertaisella hello.sls tilalla ja helloteemu.txt tiedostolla.
+
+**sudo mkdir /srv/salt**
+
+**sudoedit /srv/salt/hello.sls**
+
+Sisältö:
+
+**/tmp/helloteemu.txt:**
+**  file.managed:**
+**    - source: salt://helloteemu.txt**
+
+
+**sudoedit /srv/salt/helloteemu.txt**
+
+Sisältö:
+
+**Moro, mukavaa iltaa!**
+
+
