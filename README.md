@@ -183,7 +183,7 @@ Käyttäjän luotuani avasin toisen komentoterminaalivälilehden ja kokeilin tee
 
 Näiden jälkeen kokeilin vielä, ettei root-käyttäjällä kirjautuminen varmasti onnistu ssh:n kautta. Kirjautumisyrityksestä seurasi tieto "Permission denied, please try again.", eli kirjautminen ei rootilla enää onnistunut.
 
-Alkuasetusket olivat kunnossa, eli nyt asensin tälle virtuaalipalvelimelle Salt-masterin. Asennuksen jälkeen tein Saltia varten aukot palomuuriin.
+Alkuasetusket olivat kunnossa, eli nyt asensin tälle virtuaalipalvelimelle Salt-masterin. Käyn nämä Saltiin liittyvät toiminnot tässä varsin pikaisesti läpi, olen jo aiemmissa harjoituksissa (linkit [Harjoitus 1](https://teemuaittomaki.wordpress.com/2020/04/07/palv-hallinta-h1/) ja [Harjoitus 2](https://teemuaittomaki.wordpress.com/2020/04/15/palv-hallinta-h2/)) käynyt Saltin asennusta ja sen toimintoja tarkemmin läpi. Asennuksen jälkeen tein Saltia varten aukot palomuuriin.
 
 **sudo apt-get install salt-master -y**
 
@@ -262,7 +262,7 @@ Alkuun tein uuden tilatiedoston komenolla **sudoedit /srv/salt/sql.sls**, jonka 
 Tämä asentaa SQLite3 ohjelman (mikäki ei asennettu).
 
 **/etc/skel/databases:**
-**  file.direcotry**
+**  file.directory**
 
 Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luennolla tuosta skel-hakemiston toiminnasta ja luin siitä hieman lisää myös tästä linfo.org sivuston ([linkki](http://www.linfo.org/etc_skel.html)) kuvauksesta. Kun uusi käyttäjä luodaan **adduser** komenolla, niin mikäli /etc/skel/ hakemistoon on määritelty jotain kansioita ja/tai tiedostoja, luodaan nekin uuden käyttäjän kotihakemistoon käyttäjän luonnin yhteydessä. Eli nyt aina kun minion-laitteelle lisätään uusi käyttäjä muodostuu hänelle myös databases hakemisto samassa yhteydessä.
 
@@ -318,4 +318,4 @@ db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän
 **sudo cp esimerkkidb.db /srv/salt/**
 **sudo cp db_ohje.txt /srv/salt/**
 
-
+Ennen sql.sls tilatiedoston toimintojen testaamista minioniin, kokeilin sitä lokaalisti komennolla **sudo salt-call --local state.apply sql --state-output terse**.
