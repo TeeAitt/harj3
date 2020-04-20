@@ -248,6 +248,74 @@ Luin ohjelman **man** sivuilta ohjeita sen käytöstä. Alkuun kokeilin tehdo te
 
 **select * from tuotteet;** Tämä tulostaa taulun sisällön.
 
+**.quit** Lopettaa SQLite3 ohjelman.
+
 Tietokannan SQLite3 loi kyseiseen sijaintiin jossa olin, eli teemu-käyttäjän kotihakemistoon, se ei siis luo tietokantaa johonkin ohjelman omaan hakemistoon. Ajatuksenani oli, että salt-moduuli joka tehtävässä oli tarkoitus luoda, asentaisi minion-laitteelle SQLite3 ohjelman sekä samalla esimerkkitietokannan. Esimerkkitietokantaa varten järkevin tapa lienee kuitenkin toteuttaa se vain tiedostokopiointina. Katsoin vielä **cat testidb.db** komenolla miltä tuon tietokannan sisältö näytti.
 
 Tietokannan sisältö oli hieman kryptisen näköistä, päädyin siis siihen, että paras vaihtoehto on tosiaan kopioida esimerkkitietokanta minion-laitteelle sekä luoda käyttäjälle pieni ohje kuinka SQLite3 voi käyttää ja kuinka esimerkkitietokannan saa ohjelmalla auki.
+
+Alkuun tein uuden tilatiedoston komenolla **sudoedit /srv/salt/sql.sls**, jonka sisään kirjoitin alla olevan sisällön:
+
+**sqlite3:**
+**  pkg.installed**
+
+Tämä asentaa SQLite3 ohjelman (mikäki ei asennettu).
+
+**/etc/skel/databases:**
+**  file.direcotry**
+
+Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luennolla tuosta skel-hakemiston toiminnasta ja luin siitä hieman lisää myös tästä linfo.org sivuston ([linkki](http://www.linfo.org/etc_skel.html)) kuvauksesta. Kun uusi käyttäjä luodaan **adduser** komenolla, niin mikäli /etc/skel/ hakemistoon on määritelty jotain kansioita ja/tai tiedostoja, luodaan nekin uuden käyttäjän kotihakemistoon käyttäjän luonnin yhteydessä. Eli nyt aina kun minion-laitteelle lisätään uusi käyttäjä muodostuu hänelle myös databases hakemisto samassa yhteydessä.
+
+**/etc/skel/databases/esimerkkidb.db:**
+**  file.managed:**
+**    - source: salt://esimerkkidb.db**
+
+Tämä luo esimerkkitietokannan skel hakemistoon, sekin siis muodostuu uusille käyttäjille automaattisesti.
+
+**/etc/skel/databases/db_ohje.txt:**
+**  file.managed:**
+**    - source: salt://db_ohje.txt**
+
+Tämä luo tietokannan käytöstä ohjeen skel hakemistoon vastaavasti kuin ylempi.
+
+Tein vielä tuon esimerkkitietokannan SQLite3 ohjelmalla sekä nanolla kirjoitin ohjeen uusille käyttäjille.
+
+Esimerkkitietokanta:
+
+**sqlite3 esimerkkidb.db**
+
+**sqlite> create table tuotteet(**
+
+**   ...> tuote_id int primary key,**
+
+**   ...> nimi varchar(256),**
+
+**   ...> kpl int**
+
+**   ...> );**
+
+**sqlite> insert into tuotteet values(1001, 'esim1', 16);**
+
+**sqlite> insert into tuotteet values(1002, 'esim2' 7);**
+
+**sqlite> insert into tuotteet values(1002, 'esim2', 7);**
+
+**sqlite> insert into tuotteet values(1003, 'esim3', 19);**
+
+**sqlite> select * from tuotteet;**
+
+**1001|esim1|16**
+
+**1002|esim2|7**
+
+**1003|esim3|19**
+
+**sqlite> .quit**
+
+
+db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän jälkeen vielä kopion tiedostot /srv/salt/ hakemistoon.
+
+**sudo cp esimerkkidb.db /srv/salt/**
+**sudo cp db_ohje.txt /srv/salt/**
+
+
