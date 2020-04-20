@@ -271,8 +271,8 @@ Tämä asentaa SQLite3 ohjelman (mikäki ei asennettu).
 Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luennolla tuosta skel-hakemiston toiminnasta ja luin siitä hieman lisää myös tästä linfo.org sivuston ([linkki](http://www.linfo.org/etc_skel.html)) kuvauksesta. Kun uusi käyttäjä luodaan **adduser** komenolla, niin mikäli /etc/skel/ hakemistoon on määritelty jotain kansioita ja/tai tiedostoja, luodaan nekin uuden käyttäjän kotihakemistoon käyttäjän luonnin yhteydessä. Eli nyt aina kun minion-laitteelle lisätään uusi käyttäjä muodostuu hänelle myös databases hakemisto samassa yhteydessä.
 
 **/etc/skel/databases/esimerkkidb.db:**
-**  file.managed:**
-**    - source: salt://esimerkkidb.db**
+**file.managed:**
+**- source: salt://esimerkkidb.db**
 
 Tämä luo esimerkkitietokannan skel hakemistoon, sekin siis muodostuu uusille käyttäjille automaattisesti.
 
@@ -322,6 +322,7 @@ Esimerkkitietokanta:
 db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän jälkeen vielä kopion tiedostot /srv/salt/ hakemistoon.
 
 **sudo cp esimerkkidb.db /srv/salt/**
+
 **sudo cp db_ohje.txt /srv/salt/**
 
 Ennen sql.sls tilatiedoston toimintojen testaamista minioniin, kokeilin sitä lokaalisti komennolla **sudo salt-call --local state.apply sql --state-output terse**.
@@ -338,7 +339,9 @@ Tilatoiminnon jälkeisestä palautteesta näkyy, että kaikki tilatoiminnot onni
 **sudo salt 'laite1' cmd.run 'ls /etc/skel/databases/'**
 
 **laite1:**
+
 **db_ohje.txt**
+
 **esimerkkidb.db**
 
 Komennon palautteesta näkyy, että minionin /etc/skel/ hakemistoon oli muodostunut databases kansio ja sinne db_ohje.txt sekä esimerkkidb.db tiedostot. Kokeilin vielä erikseen minionilla lisätä uuden matti nimisen käyttäjän, jolla sitten koitan avata esimerkkidb.db tietokannan.
@@ -360,3 +363,5 @@ Sisältö:
 **'*'**
 
 **- sql**
+
+### Lopetin harjoituksen 21.4.2020 klo 1.57
