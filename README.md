@@ -54,7 +54,7 @@ Seuraavaksi loin README.md (tiedostomuotu siis MarkDown) tiedoston, johon lisäs
 **git push**
 
 Tarkistin vielä GitHubista näkyikö tämä README.md tiedosto sielläkin ja sisälsikö sen tuon Harjoitus3 tekstin. Tiedosto oli siirtynyt GitHubiin onnistuneesti, siinä näkyi kommentti "Started a readme" ja se sisälsi "Harjoitus3" tekstin.
-Nyt kun tiesin yhteyden ja siirron Gitin ja GitHubin välillä toimivan, siirryin kirjoittamaan tätä raporttia Gitillä ja luomallani README.md tiedostolla. Avasin toisen välilehden komentoterminaaliin, johon avasin nanolla tuon readme tiedoston ja kopion jo kirjoittamani raportti sisällön siihen. Muotoilin jo tässä vaiheessa muutamia kohtia, kuten otsikot, komennot (lihavoin nämä) ja linkit, käytin muotoilussa apuna tätä GitHubin ohjetta ([linkki](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)).
+Nyt kun tiesin yhteyden ja siirron Gitin ja GitHubin välillä toimivan, siirryin kirjoittamaan tätä raporttia Gitillä ja luomallani README.md tiedostolla. Avasin toisen välilehden komentoterminaaliin, johon avasin nanolla tuon readme tiedoston ja kopion jo kirjoittamani raportti sisällön siihen. Muotoilin jo tässä vaiheessa muutamia kohtia, kuten otsikot (alkuun erinnäinen määrä #-merkkejä riippuen otsikosta), komennot (lihavoin nämä, komennon alkuun ja looppun **-merkit) ja linkit (linkkiteksti []-merkkien väliin ja itse verkkosivu heti perään ()-väliin, jolloin []-välissä oleva sana toimii hyperlinkkinä kyseisellä verkkosivulle), käytin muotoilussa apuna tätä GitHubin ohjetta ([linkki](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)).
 
 Muotoilut tehtyäni ja tallennettuani tiedoston, päivitin GitHubiin. Siirto Gitin mukaan näytti onnistuvan. Siirryin siis GitHubiin ja tarkistin asian. Tekstit sekä muotoilut olivat päivittyneet onnistuneesti, myös verkkosivuille (lähteet siis) tehdyt linkitykset toimivat oikein.
 
@@ -96,3 +96,15 @@ Viimeisenä kokeilin **git blame** komentoa. Lukasin siitä hieman Gitin man siv
 Lopussa näkyi myös tapahtumia, joita ei ollut commit:ttu vielä, joten niillä ei ollut varsinaista id:tä, tietona vain **00000000** eikä ketään ns. vastuu henkilöä. Eli tiedoston tiedoston muokkaaja tieto lisätään vasta commit:n jälkeen. Pvm ja kellonaika näkyivät jo. Alla yksi esimerkkirivi tällaisesta:
 
 **00000000 (Not Committed Yet 2020-04-20 15:20:07 +0000 80) Tässä tehtäväosiossa**
+
+Tämän tehtäväosion lopuksi päivitin muutokset (eli päivitetyn raportin sekä kuvat) GitHubiin.
+
+**git add .**
+
+**git commit -m "Updates to report and pictures"**
+
+**git push**
+
+## Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset –hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
+
+Tässä tehtävässä oli tarkoituksena käyttää **git reset -hard** komentoa. En tiennyt tarkalleen mitä se teki, mutta nimestä sekä tehtävänannosta pystyi päättelemään, että se varmastikin resetoi jossakin määrin tehtyja muutoksia. Ennen kuin kokeilin komentoa, päivitin kaikki päivittämättömät tiedot GitHubiin.
