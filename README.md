@@ -64,7 +64,12 @@ Muotoilut tehtyäni ja tallennettuani tiedoston, päivitin GitHubiin. Siirto Git
 
 **git push**
 
-Nyt kopion vielä tähän harjoitukseen liittyvät kuvat tuohon harj3 kansioon, jotta nekin siirtyisivät suoraan GitHubiin aina raportin (readme tiedosto) päivityksen yhteydessä.
+Nyt kopion vielä tähän harjoitukseen liittyvät kuvat tuohon harj3 kansioon, jotta nekin siirtyisivät suoraan GitHubiin aina raportin (readme tiedosto) päivityksen yhteydessä. Kopioinnin jälkeen päivitin ne vielä GitHubiin ja tarkistin GitHubista, että siirto oli onnistunut ja että kuvat avautuivat. Siirto onnistui ja kuvat avautuivat myös, eli tämänkin osalta homma toimi.
 
 **cp /home/xubuntu/Pictures/*.png /home/xubuntu/harj3/**
 
+**git add .**
+
+**git commit -m "Report and pictures"**
+
+**git push**
