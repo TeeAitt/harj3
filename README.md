@@ -228,3 +228,26 @@ Varsinaisen SQLite3 ohjelman asennusta ja käyttöä testasin aluksi masterilla.
 
 **sudo apt-get install sqlite3 -y**
 
+Luin ohjelman **man** sivuilta ohjeita sen käytöstä. Alkuun kokeilin tehdo testidb.db nimisen tietokannan ja sen sisälle taulun muutamalla sarakkeella ja laittamalla näihin sarakkeisiin hieman jotain tietoa.
+
+**sqlite3 testidb.db** Tämä luo tietokannan.
+
+**create table tuotteet(** Tämä luo tuotteet nimisen taulun.
+
+**tuoteid int primary key** Tämä luo tuoteid sarakkeen, joka on PK ja käyttää numeroita (int).
+
+**nimi varcar(256)** Tämä luo nimi sarakkeen, joka käyttää eri merkkejä (kirjain tai numero).
+
+**kpl int** Tämä luo kpl sarakkeen, joka käyttää numeroita.
+
+**);** Tämä sulkee taulun.
+
+**inset into tuotteet values(123, 'kahvi', 19);** Tämä lisää tietoja tuotteet tauluun.
+
+**inset into tuotteet values(124, 'maito', 7);** Tämä lisää tietoja tuotteet tauluun (eli tässä lisättiin yhteensä kaksi riviä).
+
+**select * from tuotteet;** Tämä tulostaa taulun sisällön.
+
+Tietokannan SQLite3 loi kyseiseen sijaintiin jossa olin, eli teemu-käyttäjän kotihakemistoon, se ei siis luo tietokantaa johonkin ohjelman omaan hakemistoon. Ajatuksenani oli, että salt-moduuli joka tehtävässä oli tarkoitus luoda, asentaisi minion-laitteelle SQLite3 ohjelman sekä samalla esimerkkitietokannan. Esimerkkitietokantaa varten järkevin tapa lienee kuitenkin toteuttaa se vain tiedostokopiointina. Katsoin vielä **cat testidb.db** komenolla miltä tuon tietokannan sisältö näytti.
+
+Tietokannan sisältö oli hieman kryptisen näköistä, päädyin siis siihen, että paras vaihtoehto on tosiaan kopioida esimerkkitietokanta minion-laitteelle sekä luoda käyttäjälle pieni ohje kuinka SQLite3 voi käyttää ja kuinka esimerkkitietokannan saa ohjelmalla auki.
