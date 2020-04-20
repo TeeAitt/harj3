@@ -108,3 +108,28 @@ Tämän tehtäväosion lopuksi päivitin muutokset (eli päivitetyn raportin sek
 ## Tee tyhmä muutos gittiin, älä tee commit:tia. Tuhoa huonot muutokset ‘git reset –hard’. Huomaa, että tässä toiminnossa ei ole peruutusnappia.
 
 Tässä tehtävässä oli tarkoituksena käyttää **git reset -hard** komentoa. En tiennyt tarkalleen mitä se teki, mutta nimestä sekä tehtävänannosta pystyi päättelemään, että se varmastikin resetoi jossakin määrin tehtyja muutoksia. Ennen kuin kokeilin komentoa, päivitin kaikki päivittämättömät tiedot GitHubiin.
+
+Lisäsin harj3 kansioon uuden resettesti.txt tekstitiedoston, johon kirjoitin tekstin "Kokeillaan mitä git reset -had komennolla tapahtuu." ja tämän jälkeen kokeilin varsinaista reset komentoa.
+
+**nano resettesti.txt**
+**git reset --hard**
+
+Komennosta seurasi tieto **HEAD is now at b962e0b Updates to report and pictures**. En ollut ihan varma mitä tämä tarkoitti, mutta **Updates to report and pictures** selkeästikin viittasi viimeisimpään commit:n, siinähän käytin tuota selostetta. **b962e0b** jonkinasteiselta id:ltä, mutta se ainakaan vaikuttanut liittyvän blame toiminnolla nähtäviin rivi id:hin, ne olivat 8 merkkiä pitkiä kun taas tämä oli 7 merkkiä pitkä. **HEAD is now at** taas ilmisesti kertoi missä kohdassa resetin alkukohta olisi, siltä se ainakin kuulosti, tuon **b962e0b** taas tällöin voisi olettaa olevan jokin tähän liittyvä id. Seuraavaksi katsoin oliko tekemäni resettesti.txt tiedosto kadonnut harj3 git kansiosta, mutta kun **cat resettesti.txt" komennolal kokeilin, niin näkyi että tiedosto sisältöineen oli selkeästi edelleen kansiossa.
+
+**nano resettesti.txt**
+
+**git reset --hard**
+
+**cat resettesti.txt**
+
+Eli **git reset --hard** ei ainakaan tuota tiedostoa minulta poistanut suoraan, asettiko se siis jonkin asteisen merkin, jonka jälkeiset tiedostot resetoidaan? En oikeastaan tiennyt tai osannut sanoa, joten turvauduin googleen. Löysin tämän devconnected.com sivuston ([linkki](https://devconnected.com/how-to-git-reset-to-head/)) ohjeen, jossa avattiin tätä komentoa. Eli tiedostot tulee aluksi siirtää **add** toiminnolla odottamaan (eli indexiin) commit:ia, jonka jälkeen **git reset --hard** resetoi tilanteen poistamalla ne kokonaan sekä indexistä git kansiosta palauttamalla tilanteen takaisin edellisen commit:n jälkeiseen tilanteeseen. devconnected.com sivuston ohjeen luettuani kokeilin tätä siirtämällä resettesti.txt tiedoston indexiin (eli odottamaan commit:ia), jonka jälkeen katsoin indexin tilan **git status** komennolla, siellä näkyi että resettesti.txt tiedosto odotti commit:ia. Nyt siis kokeilin **git reset --hard** komentoa, jonka jälkeen katsoin Gitin statuksen, nyt resettesti.txt tiedosto oli kadonnut indexistä, mikään tiedosto ei odottanut commit:ia. Listasin vielä git kansion sisällön, josta näki, että tiedosto oli kadonnut myös sieltä kokonaan.
+
+**git add .**
+
+**git status**
+
+**git reset --hard**
+
+**git status**
+
+**git reset --hard** komennolla saa siis varsin helposti poistettua virheelliset tiedot sekä indexistä että koko kansiosta hyppäämällä takaisin edelliselle commit:lle. Reset komennon kanssa tosin kannattaa olla tarkkana, koska jos on **add** komennolla siirtänyt myös jotakin oleellista odottamaan commit:ia ja siirtoa, niin katoavat nämä myös tässä samassa.
