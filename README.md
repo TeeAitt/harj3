@@ -327,12 +327,169 @@ db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän
 
 Ennen sql.sls tilatiedoston toimintojen testaamista minioniin, kokeilin sitä lokaalisti komennolla **sudo salt-call --local state.apply sql --state-output terse**.
 
+**local:**
+
+**Name: sqlite3 - Function: pkg.installed - Result: Clean Started: - 21:58:14.802103 Duration: 523.797 ms**
+
+**Name: /etc/skel/databases - Function: file.directory - Result: Changed Started: - 21:58:15.330535 Duration: 1.386 ms**
+
+**Name: /etc/skel/databases/esimerkkidb.db - Function: file.managed - Result: Changed Started: - 21:58:15.332084 Duration: 14.854 ms**
+
+**Name: /etc/skel/databases/db_ohje.txt - Function: file.managed - Result: Changed Started: - 21:58:15.347069 Duration: 3.591 ms**
+
+
+**Summary for local*
+
+**------------**
+
+**Succeeded: 4 (changed=3)**
+
+**Failed:    0**
+
+**------------**
+
+**Total states run:     4**
+
+**Total run time: 543.628 ms**
+
 
 Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käytännössä, eli minionille tilatoimintojen suorittamista.
 
 **sudo salt '*' state.apply sql**
 
-**toimii**
+
+laite1:
+
+----------
+
+          ID: sqlite3
+
+    Function: pkg.installed
+
+      Result: True
+
+     Comment: The following packages were installed/updated: sqlite3
+
+     Started: 22:29:58.509542
+
+    Duration: 8364.982 ms
+
+     Changes:   
+
+              ----------
+
+              libsqlite3-0:
+
+                  ----------
+
+                  new:
+
+                      3.22.0-1ubuntu0.3
+
+                  old:
+
+                      3.22.0-1ubuntu0.2
+
+              sqlite3:
+
+                  ----------
+
+                  new:
+
+                      3.22.0-1ubuntu0.3
+
+                  old:
+
+----------
+
+          ID: /etc/skel/databases
+
+    Function: file.directory
+
+      Result: True
+
+     Comment: Directory /etc/skel/databases updated
+
+     Started: 22:30:06.877240
+
+    Duration: 2.954 ms
+
+     Changes:   
+
+              ----------
+
+              /etc/skel/databases:
+
+                  New Dir
+
+----------
+
+          ID: /etc/skel/databases/esimerkkidb.db
+
+    Function: file.managed
+
+      Result: True
+
+     Comment: File /etc/skel/databases/esimerkkidb.db updated
+
+     Started: 22:30:06.880267
+
+    Duration: 385.206 ms
+
+     Changes:   
+
+              ----------
+
+              diff:
+
+                  New file
+
+              mode:
+
+                  0644
+
+----------
+
+          ID: /etc/skel/databases/db_ohje.txt
+
+    Function: file.managed
+
+      Result: True
+
+     Comment: File /etc/skel/databases/db_ohje.txt updated
+
+     Started: 22:30:07.265757
+
+    Duration: 250.769 ms
+
+     Changes:   
+
+              ----------
+
+              diff:
+
+                  New file
+
+              mode:
+
+                  0644
+
+
+Summary for laite1
+
+------------
+
+Succeeded: 4 (changed=4)
+
+Failed:    0
+
+------------
+
+Total states run:     4
+
+Total run time:   9.004 s
+
+
 
 Tilatoiminnon jälkeisestä palautteesta näkyy, että kaikki tilatoiminnot onnistuivat. Kuitenkin vielä varmistaakseni asian, tuli tämä testata.
 
