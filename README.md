@@ -48,3 +48,5 @@ Seuraavaksi loin README.md (tiedostomuotu siis MarkDown) tiedoston, johon lisäs
 
 Tarkistin vielä GitHubista näkyikö tämä README.md tiedosto sielläkin ja sisälsikö sen tuon Harjoitus3 tekstin. Tiedosto oli siirtynyt GitHubiin onnistuneesti, siinä näkyi kommentti "Started a readme" ja se sisälsi "Harjoitus3" tekstin.
 Nyt kun tiesin yhteyden ja siirron Gitin ja GitHubin välillä toimivan, siirryin kirjoittamaan tätä raporttia Gitillä ja luomallani README.md tiedostolla. Avasin toisen välilehden komentoterminaaliin, johon avasin nanolla tuon readme tiedoston ja kopion jo kirjoittamani raportti sisällön siihen. Muotoilin jo tässä vaiheessa muutamia kohtia, kuten otsikot, komennot (lihavoin nämä) ja linkit, käytin muotoilussa apuna tätä GitHubin ohjetta ([linkki](https://help.github.com/en/github/writing-on-github/basic-writing-and-formatting-syntax)).
+
+Muotoilut tehtyäni ja tallennettuani tiedoston, päivitin GitHubiin. Siirto Gitin mukaan näytti onnistuvan. Siirryin siis GitHubiin ja tarkistin asian. Tekstit sekä muotoilut olivat päivittyneet onnistuneesti, myös verkkosivuille (lähteet siis) tehdyt linkitykset toimivat oikein.
