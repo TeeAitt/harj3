@@ -133,3 +133,13 @@ Eli **git reset --hard** ei ainakaan tuota tiedostoa minulta poistanut suoraan, 
 **git status**
 
 **git reset --hard** komennolla saa siis varsin helposti poistettua virheelliset tiedot sekä indexistä että koko kansiosta hyppäämällä takaisin edelliselle commit:lle. Reset komennon kanssa tosin kannattaa olla tarkkana, koska jos on **add** komennolla siirtänyt myös jotakin oleellista odottamaan commit:ia ja siirtoa, niin katoavat nämä myös tässä samassa.
+
+
+## Tee uusi salt-moduuli
+
+Tässä viimeisessä tehtäväosiossa oli tarkoituksena tehä salt-moduuli, jossa asennetaan jokin demoni, työpöytäohjelma tai komentokehotteesta toimiva ohjelma. Tarkoituksena oli kuitenkin, että kyseessä on jokin eri ohjelma, kuin olisi jossain aiemmassa kurssin harjoituksessa käytetty. Hetken mietittyäni tuli mieleen löytyisikö SQLite3-ohjelmasta pakettipohjaista asennusta. Olin ohjelman käyttämistä kokeillut pikaisesti toisella kurssilla, mutta silloinkin se oli asennettu lataamalla pakattutiedosto verkkosivulta. Hain siis komentoterminaalin kautta SQLite3:sta jonkinlaista pakettiasennustiedostoa. Lista oli varsin laaja, joten rajasin sen **grep** avulla koskemaan vain paketteja mitkä sisälsivät sqlite3 tekstin. Pakettilistalta löytyi sqlite3 niminen paketti, joka kuvauksen mukaan oli komentoterminaalin kautta käytettä sqlite3 ohjelma, päätin siis kokeilla luoda sen käyttöönoton ympärille salt-moduulin.
+
+**apt-cache search sqlite3**
+
+**apt-cache search sqlite3|grep sqlite3**
+
