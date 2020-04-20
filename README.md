@@ -212,8 +212,10 @@ Tein seuraavaksi masterille kansion tilatoimintoja varten, joita aluksi kokeilin
 Sisältö:
 
 **/tmp/helloteemu.txt:**
-**  file.managed:**
-**    - source: salt://helloteemu.txt**
+
+**file.managed:**
+
+**- source: salt://helloteemu.txt**
 
 
 **sudoedit /srv/salt/helloteemu.txt**
@@ -257,12 +259,14 @@ Tietokannan sisältö oli hieman kryptisen näköistä, päädyin siis siihen, e
 Alkuun tein uuden tilatiedoston komenolla **sudoedit /srv/salt/sql.sls**, jonka sisään kirjoitin alla olevan sisällön:
 
 **sqlite3:**
-**  pkg.installed**
+
+**pkg.installed**
 
 Tämä asentaa SQLite3 ohjelman (mikäki ei asennettu).
 
 **/etc/skel/databases:**
-**  file.directory**
+
+**file.directory**
 
 Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luennolla tuosta skel-hakemiston toiminnasta ja luin siitä hieman lisää myös tästä linfo.org sivuston ([linkki](http://www.linfo.org/etc_skel.html)) kuvauksesta. Kun uusi käyttäjä luodaan **adduser** komenolla, niin mikäli /etc/skel/ hakemistoon on määritelty jotain kansioita ja/tai tiedostoja, luodaan nekin uuden käyttäjän kotihakemistoon käyttäjän luonnin yhteydessä. Eli nyt aina kun minion-laitteelle lisätään uusi käyttäjä muodostuu hänelle myös databases hakemisto samassa yhteydessä.
 
@@ -273,8 +277,10 @@ Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luen
 Tämä luo esimerkkitietokannan skel hakemistoon, sekin siis muodostuu uusille käyttäjille automaattisesti.
 
 **/etc/skel/databases/db_ohje.txt:**
-**  file.managed:**
-**    - source: salt://db_ohje.txt**
+
+**file.managed:**
+
+**- source: salt://db_ohje.txt**
 
 Tämä luo tietokannan käytöstä ohjeen skel hakemistoon vastaavasti kuin ylempi.
 
@@ -286,13 +292,13 @@ Esimerkkitietokanta:
 
 **sqlite> create table tuotteet(**
 
-**   ...> tuote_id int primary key,**
+**...> tuote_id int primary key,**
 
-**   ...> nimi varchar(256),**
+**...> nimi varchar(256),**
 
-**   ...> kpl int**
+**...> kpl int**
 
-**   ...> );**
+**...> );**
 
 **sqlite> insert into tuotteet values(1001, 'esim1', 16);**
 
@@ -319,3 +325,38 @@ db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän
 **sudo cp db_ohje.txt /srv/salt/**
 
 Ennen sql.sls tilatiedoston toimintojen testaamista minioniin, kokeilin sitä lokaalisti komennolla **sudo salt-call --local state.apply sql --state-output terse**.
+
+
+Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käytännössä, eli minionille tilatoimintojen suorittamista.
+
+**sudo salt '*' state.apply sql**
+
+**toimii**
+
+Tilatoiminnon jälkeisestä palautteesta näkyy, että kaikki tilatoiminnot onnistuivat. Kuitenkin vielä varmistaakseni asian, tuli tämä testata.
+
+**sudo salt 'laite1' cmd.run 'ls /etc/skel/databases/'**
+
+**laite1:**
+**db_ohje.txt**
+**esimerkkidb.db**
+
+Komennon palautteesta näkyy, että minionin /etc/skel/ hakemistoon oli muodostunut databases kansio ja sinne db_ohje.txt sekä esimerkkidb.db tiedostot. Kokeilin vielä erikseen minionilla lisätä uuden matti nimisen käyttäjän, jolla sitten koitan avata esimerkkidb.db tietokannan.
+
+**sudo adduser matti**
+
+**sudo login matti**
+
+**ls** komennolla tarkistin että databases hakemisto näkyi matti-käyttäjän hakemistossa. Siirryin hakemistoon **cd databases/**, avasin esimerkki tietokannan **sqlite3 esimerkkidb.db** ja tulostin tuotteet taulun sisällön **select * from tuotteet;**. Kaikki toimi ja näkyi oikein. Suljin SQLite3:n **.quit** ja katsoin että tietokanta ohje avautuu **cat db_ohje.txt"". Se avautui sekä sinne kirjoitettu sisältö näkyi myös.
+
+Tämä tula sql.sls tilatiedosto toimi siis onnistuneesti. Lisäsin masterille vielä /srv/salt/ hakemistoon sql.sls tilatiedoston toiminnan automatisoivan top.sls tiedoston.
+
+**sudoedit /srv/salt/top.sls**
+
+Sisältö:
+
+**base:**
+
+**'*'**
+
+**- sql**
