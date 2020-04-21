@@ -19,7 +19,7 @@ Vaikka olinkin Git:n ja GitHubiin ennen tätä harjoitusta hieman tutustunut, ni
 
 Tässä ensimmäisessä tehtäväosiossa tarkoituksena oli harjoitella MarkDownin käyttöönottoa ja käyttää sitä koko raportin kirjoittamiseen (nuo alustustekstit kirjoitin LibreOffice Writellä). MarkDown ei ollut minulle entuudestaan tuttu, joten tutustuin siihen hieman näistä GitHubin ohjeista ([linkki 1](https://guides.github.com/features/mastering-markdown/) ja [linkki 2](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)) avulla. MarkDownilla (.md päätteinen tiedosto) pystyy kirjoittamaan tekstiä, johon yksinkertaisilla lisäyksillä saa lisättyä verkossa näkyvät muotoilut, esim. #  lisää H1 tason otsikon, ## taas H2 tason otsikon jne., ja - pystyy tekemään tyyliteltyjä bullet-point listoja. MarkDown tiedostoihin pystyy myös upottamaan linkkejä.
 
-Ennen Git:n asennusta vaihdoin näppäinasettelun suomalaiseksi sekä päivitin pakettitiedot ajantasalle. Gitin asennukseen ja käyttöön ottoon käytin hyödyksi tätä Tero Karvisen ohjetta ([linkki](http://terokarvinen.com/2016/publish-your-project-with-github)) asiasta, siinä käydään myös läpi GitHubin luodun repositoryn liittäminen Gitiin.
+Ennen Git:n asennusta vaihdoin näppäinasettelun suomalaiseksi sekä päivitin pakettitiedot ajantasalle. Gitin asennukseen ja käyttöönottoon käytin hyödyksi näitä Tero Karvisen ohjeita ([linkki1](http://terokarvinen.com/2016/publish-your-project-with-github) ja [linkki2](http://terokarvinen.com/2012/git-from-offline-to-network)) asiasta, joista ensimmäisessä ohjeistettiin myös GitHubin luodun repositoryn liittäminen Gitiin.
 
 **setxkbmap fi**
 
@@ -201,7 +201,7 @@ Asetustiedostoon määrittelin master-laitteen IP-osoitteen (**master:** kohta),
 
 **sudo systemctl restart salt-minion.service **
 
-Seuraavaksi katsoin masterilla **sudo salt-key -A** komennolla, oliko sille tullut hyväksyttäviä avaimia (public key). Listalla oli laite1:n lähettämä avain, hyväksyin sen "y" komennolla. Tämän jälkeen varmistin masterilla vielä "sudo salt '*' cmd.run 'whoami' komennolla, että yhteys ja komennot varmasti toimivat, tähän tuli vastaus "laite1: root", eli minion vastasi komentoon.
+Seuraavaksi katsoin masterilla **sudo salt-key -A** komennolla, oliko sille tullut hyväksyttäviä avaimia (public key). Listalla oli laite1:n lähettämä avain, hyväksyin sen **y** komennolla. Tämän jälkeen varmistin masterilla vielä **sudo salt '*' cmd.run 'whoami'** komennolla, että yhteys ja komennot varmasti toimivat, tähän tuli vastaus "laite1: root", eli minion vastasi komentoon.
 
 Tein seuraavaksi masterille kansion tilatoimintoja varten, joita aluksi kokeilin yksinkertaisella hello.sls tilalla ja helloteemu.txt tiedostolla.
 
@@ -271,7 +271,9 @@ Tämä asentaa SQLite3 ohjelman (mikäki ei asennettu).
 Tämä luo skel hakemistoon databases nimisen kansion. Tero Karvinen kertoi luennolla tuosta skel-hakemiston toiminnasta ja luin siitä hieman lisää myös tästä linfo.org sivuston ([linkki](http://www.linfo.org/etc_skel.html)) kuvauksesta. Kun uusi käyttäjä luodaan **adduser** komenolla, niin mikäli /etc/skel/ hakemistoon on määritelty jotain kansioita ja/tai tiedostoja, luodaan nekin uuden käyttäjän kotihakemistoon käyttäjän luonnin yhteydessä. Eli nyt aina kun minion-laitteelle lisätään uusi käyttäjä muodostuu hänelle myös databases hakemisto samassa yhteydessä.
 
 **/etc/skel/databases/esimerkkidb.db:**
+
 **file.managed:**
+
 **- source: salt://esimerkkidb.db**
 
 Tämä luo esimerkkitietokannan skel hakemistoon, sekin siis muodostuu uusille käyttäjille automaattisesti.
@@ -504,7 +506,7 @@ Komennon palautteesta näkyy, että minionin /etc/skel/ hakemistoon oli muodostu
 
 **sudo login matti**
 
-**ls** komennolla tarkistin että databases hakemisto näkyi matti-käyttäjän hakemistossa. Siirryin hakemistoon **cd databases/**, avasin esimerkki tietokannan **sqlite3 esimerkkidb.db** ja tulostin tuotteet taulun sisällön **select * from tuotteet;**. Kaikki toimi ja näkyi oikein. Suljin SQLite3:n **.quit** ja katsoin että tietokanta ohje avautuu **cat db_ohje.txt"". Se avautui sekä sinne kirjoitettu sisältö näkyi myös.
+**ls** komennolla tarkistin että databases hakemisto näkyi matti-käyttäjän hakemistossa. Siirryin hakemistoon **cd databases/**, avasin esimerkki tietokannan **sqlite3 esimerkkidb.db** ja tulostin tuotteet taulun sisällön **select * from tuotteet;**. Kaikki toimi ja näkyi oikein. Suljin SQLite3:n **.quit** ja katsoin että tietokanta ohje avautuu **cat db_ohje.txt**. Se avautui sekä sinne kirjoitettu sisältö näkyi myös.
 
 Tämä tula sql.sls tilatiedosto toimi siis onnistuneesti. Lisäsin masterille vielä /srv/salt/ hakemistoon sql.sls tilatiedoston toiminnan automatisoivan top.sls tiedoston.
 
