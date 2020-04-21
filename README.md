@@ -398,7 +398,7 @@ Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käy
 
                   old:
 
-----------
+          ----------
 
           ID: /etc/skel/databases
 
@@ -420,7 +420,7 @@ Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käy
 
                   New Dir
 
-----------
+          ----------
 
           ID: /etc/skel/databases/esimerkkidb.db
 
@@ -446,7 +446,7 @@ Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käy
 
                   0644
 
-----------
+          ----------
 
           ID: /etc/skel/databases/db_ohje.txt
 
