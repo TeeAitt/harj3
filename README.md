@@ -327,30 +327,28 @@ db_ohje.txt tiedostoon kirjoitin pienen listan ohjeita (näkyy kuvassa). Tämän
 
 Ennen sql.sls tilatiedoston toimintojen testaamista minioniin, kokeilin sitä lokaalisti komennolla **sudo salt-call --local state.apply sql --state-output terse**.
 
-**local:**
+          local:
 
-**Name: sqlite3 - Function: pkg.installed - Result: Clean Started: - 21:58:14.802103 Duration: 523.797 ms**
+          Name: sqlite3 - Function: pkg.installed - Result: Clean Started: - 21:58:14.802103 Duration: 523.797 ms
 
-**Name: /etc/skel/databases - Function: file.directory - Result: Changed Started: - 21:58:15.330535 Duration: 1.386 ms**
+          Name: /etc/skel/databases - Function: file.directory - Result: Changed Started: - 21:58:15.330535 Duration: 1.386 ms
 
-**Name: /etc/skel/databases/esimerkkidb.db - Function: file.managed - Result: Changed Started: - 21:58:15.332084 Duration: 14.854 ms**
+          Name: /etc/skel/databases/esimerkkidb.db - Function: file.managed - Result: Changed Started: - 21:58:15.332084 Duration: 14.854 ms
 
-**Name: /etc/skel/databases/db_ohje.txt - Function: file.managed - Result: Changed Started: - 21:58:15.347069 Duration: 3.591 ms**
+          Name: /etc/skel/databases/db_ohje.txt - Function: file.managed - Result: Changed Started: - 21:58:15.347069 Duration: 3.591 ms
 
 
-**Summary for local*
+          Summary for local
+          
+          ------------
 
-**------------**
+          Succeeded: 4 (changed=3)
 
-**Succeeded: 4 (changed=3)**
+          Failed:    0
 
-**Failed:    0**
-
-**------------**
-
-**Total states run:     4**
-
-**Total run time: 543.628 ms**
+          ------------
+          Total states run:     4
+          Total run time: 543.628 ms
 
 
 Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käytännössä, eli minionille tilatoimintojen suorittamista.
@@ -358,9 +356,9 @@ Tilatoiminnot toiminnot toimivat ainakin lokaalisti, oli siis aika kokeilla käy
 **sudo salt '*' state.apply sql**
 
 
-laite1:
+          laite1:
 
-----------
+          ----------
 
           ID: sqlite3
 
@@ -473,21 +471,20 @@ laite1:
               mode:
 
                   0644
+          
+          Summary for laite1
 
+          ------------
 
-Summary for laite1
+          Succeeded: 4 (changed=4)
 
-------------
+          Failed:    0
 
-Succeeded: 4 (changed=4)
+          ------------
 
-Failed:    0
+          Total states run:     4
 
-------------
-
-Total states run:     4
-
-Total run time:   9.004 s
+          Total run time:   9.004 s
 
 
 
